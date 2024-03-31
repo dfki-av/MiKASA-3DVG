@@ -86,7 +86,7 @@ class MiKASA_transformer(nn.Module):
         POST_CLASS_LOGITS = rotation_aggregate(self.post_object_clf(torch.clone(obj_feats)).reshape(B,R,N,self.n_obj_classes))
         # <LOSS>: lang_cls
         lang_features = lang_infos[:,0]
-        LANG_LOGITS = self.language_clf(torch.clone(lang_features))        
+        LANG_LOGITS = self.language_clf(torch.clone(lang_features))   
         max_indices_lang_logits = torch.argmax(LANG_LOGITS, dim=1)
         expanded_indices = max_indices_lang_logits.unsqueeze(1).expand(B, N)
         batch_indices = torch.arange(B).unsqueeze(1).expand(B, N)
@@ -95,7 +95,7 @@ class MiKASA_transformer(nn.Module):
         ## spatial_encoding
         fusion_info = self.fusion_net(objs=rotation_aggregate(torch.clone(obj_feats).reshape(B,R,N,self.d_model)) , 
                                     text=lang_infos, 
-                                    boxes=batch['box_info']) # (B, N, D_obj) 
+                                    boxes=batch['box_info'])
         # <LOSS>: ref_cls
         fusion_logits = norm_output_scores(self.fusion_clf(fusion_info).squeeze(-1))
         
