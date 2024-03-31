@@ -1,0 +1,70 @@
+scannet_file: ""
+referit3D_file: ""
+bert_pretrain_path: ""
+
+batch_size: 12
+mentions_target_class_only: true
+max_seq_len: 24
+augment_with_sr3d: null
+vocab_file: null
+min_word_freq: 3
+n_workers: 4 #8
+unit_sphere_norm: true
+max_distractors: 51
+max_test_objects: 51
+max_seq_len: 24
+points_per_object: 1024
+mode: 
+random_seed: 2077
+gpu: '0'
+init_lr: 0.0005
+fine_tune: false
+max_train_epochs: 200
+fl_weight: 1
+cl_weight: 1
+lang_cls_alpha: 0.5
+obj_cls_alpha: 0.5
+loss_o: 1
+loss_po: 0.1
+loss_l: 0.1
+optimizer:
+  type: "adamw"
+  weight_decay: 0.05
+  steps: [30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170]
+  gamma: 0.66
+
+
+view_number: 4
+rotate_number: 4
+d_model: 768
+d_hidden: 2048
+dropout_rate: 0.1
+post_obj_layers: 2
+
+text_encoder:
+  encoder_layer_num: 3
+
+fusion:
+  norm_xy: true
+  norm_z: true
+  norm_d: true
+  late_view_agg: true
+  d_model: 768
+  view_num: 4
+  rotation_num: 4
+  n_layer: 3
+  spatial_enc:
+    dropout_rate: 0.1
+  obj_text:
+    n_head: 8
+    dropout_rate: 0.1
+    d_hidden: 2048
+  spatial_text:
+    n_head: 8
+    dropout_rate: 0.1
+    d_hidden: 2048
+  sp_agg:
+    n_head: 8
+    dropout_rate: 0.1
+    d_hidden: 2048
+
