@@ -44,10 +44,9 @@ class MiKASA_transformer(nn.Module):
         self.fusion_net = FusionNet(config.fusion) 
         
         # Classifier heads
-        n_obj_classes=607
-        self.object_clf = create_classifier(config.d_model, n_obj_classes, config.dropout_rate)
-        self.post_object_clf = create_classifier(config.d_model, n_obj_classes, config.dropout_rate)
-        self.language_clf = create_classifier(config.d_model, n_obj_classes, config.dropout_rate)
+        self.object_clf = create_classifier(config.d_model, self.n_obj_classes, config.dropout_rate)
+        self.post_object_clf = create_classifier(config.d_model, self.n_obj_classes, config.dropout_rate)
+        self.language_clf = create_classifier(config.d_model, self.n_obj_classes, config.dropout_rate)
         self.fusion_clf = create_classifier(config.d_model, 1, config.dropout_rate)        
         
         # Loss
