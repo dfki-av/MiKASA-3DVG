@@ -1,4 +1,4 @@
-# MiKASA-3DVG
+# MiKASA-3DVG (CVPR 24)
 ![MiKASA](fig/architecture.jpg)
  
 ## 1. Data Preparation
@@ -61,6 +61,8 @@ For the dependencies please refer [MVT](https://github.com/sega-hsj/MVT-3DVG). A
     --resume-path $PATH_OF_CHECKPOINT$ \
     --mode evaluate \
 ```
+### 6. Checkpoints
+[Link](https://drive.google.com/drive/folders/1YB6nxjZwnBUyY_qQryjFTKKOhPmGUsFk)
 ## Credit
 The project is built based on the following repository:
 * [ReferIt3D](https://github.com/referit3d/referit3d)
