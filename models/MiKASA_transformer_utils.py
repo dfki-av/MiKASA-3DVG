@@ -51,11 +51,7 @@ def single_epoch_train(model, data_loader, criteria, optimizer, device, pad_idx,
     model.train()
     np.random.seed()  # call this to change the sampling of the point-clouds
     batch_keys = make_batch_keys(config)
-    i = 0
     for batch in tqdm.tqdm(data_loader): 
-        i+=1       
-        if i > 50:
-            break
         # Move data to gpu
         for k in batch_keys:
             if isinstance(batch[k],list):
