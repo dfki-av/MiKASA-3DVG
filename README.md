@@ -63,6 +63,19 @@ For the dependencies please refer [MVT](https://github.com/sega-hsj/MVT-3DVG). A
 ```
 ### 6. Checkpoints
 [Link](https://drive.google.com/drive/folders/1YB6nxjZwnBUyY_qQryjFTKKOhPmGUsFk)
+
+### Citation
+```
+@inproceedings{chang2024mikasa,
+  title={MiKASA: Multi-Key-Anchor \& Scene-Aware Transformer for 3D Visual Grounding},
+  author={Chang, Chun-Peng and Wang, Shaoxiang and Pagani, Alain and Stricker, Didier},
+  booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
+  pages={14131--14140},
+  year={2024}
+}
+```
+
+
 ## Credit
 The project is built based on the following repository:
 * [ReferIt3D](https://github.com/referit3d/referit3d)
