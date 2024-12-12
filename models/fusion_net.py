@@ -62,6 +62,24 @@ class FusionNet(nn.Module):
         layer = MultiHeadSpatialNet(view_num=self.view_num, n_head=config.sp_agg.n_head, d_model=self.d_model, d_hidden=config.sp_agg.d_hidden, dropout=config.sp_agg.dropout_rate)
         self.sp_agg = nn.ModuleList([copy.deepcopy(layer)
                                             for _ in range(config.n_layer)])
+    @torch.no_grad()
+    def aug_box(self, box_infos):
+        box_infos = box_infos.float().to(self.device)
+        bxyz = box_infos[...,:3] # B,N,3
+        B,N = bxyz.shape[:2]
+        # rotation
+        if self.training:
+            rotate_matrix = get_random_rotation_matrix(self.view_num, self.device)
+            bxyz = torch.matmul(bxyz.reshape(B*N,3), rotate_matrix).reshape(B,N,3)
+        # multi-view
+        bsize = box_infos[...,3:]
+        boxs=[]
+        for theta in torch.Tensor([i*2.0*np.pi/self.view_num for i in range(self.view_num)]).to(self.device):
+            rotate_matrix = get_rotation_matrix(theta, self.device)
+            rxyz = torch.matmul(bxyz.reshape(B*N, 3),rotate_matrix).reshape(B,N,3)
+            boxs.append(torch.cat([rxyz,bsize],dim=-1))
+        boxs=torch.stack(boxs,dim=1)
+        return boxs
     
     @torch.no_grad()
     def get_pairwise_distance(self, x):
@@ -98,7 +116,7 @@ class FusionNet(nn.Module):
         self.device = device
         B, N, _ = boxes.shape 
         # Data view
-        boxes = aug_box(boxes, self.view_num, self.training, self.device)
+        boxes = self.aug_box(boxes)
         boxes = boxes.reshape(B*self.view_num, N, 7)
         xyz = boxes[...,:3]
         
