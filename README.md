@@ -33,6 +33,7 @@ MiKASA/
 ```
 
 ## 2. Environment
+All experiments were conducted using a single A100-80GB GPU.
 * Ubuntu: 20.04
 * CUDA: 11.7
 * PyTorch: 1.13
